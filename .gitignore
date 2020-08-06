@@ -1,40 +1,21 @@
-# Build products and artifacts
-.m2-repository/
-pom.xml.versionsBackup
-target/
-dependency-reduced-pom.xml
-
-# Stuff from various IDE's and editors
-*.iml
+target
+build
+out
+*.DS_Store
 *~
-.idea/*
-*.log
-*.log.gz
-nb-configuration.xml
-
-# Mac OS X Finder
-.DS_Store
-
-.classpath
-.settings/
-.project
-/src/server/build/
-src/packaging/build/
-*.deb
-*.rpm
-
-# frontend dev stuff
-src/ui/bower_components
-src/ui/node_modules
-src/ui/package-lock.json
-src/ui/app/jsx/navbar.jsx
-src/ui/build
-
-# Docker Compose persistent storage directory
-src/packaging/data
-/src/packages/
-
-# SSL stores directory
-src/packaging/ssl-stores
-/src/server/nbproject/
-src/ui/theming/bootstrap/node_modules
+.gradle
+*.iml
+*.ipr
+*.iws
+.idea
+.*.swp
+*.class
+/bin
+user.gradle
+/.settings
+*.classpath
+*.project
+.pytest_cache
+*pem
+ansible/inventory/
+.vault_pass

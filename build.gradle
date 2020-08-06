@@ -1,0 +1,7 @@
+allprojects {
+   project.ext.set("releaseVersion", findProperty('releaseVersion') ?: 1)
+}
+
+project(':docker:reaper') {
+   version = '2.0.1'
+}

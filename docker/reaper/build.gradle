@@ -1,0 +1,28 @@
+import org.apache.tools.ant.taskdefs.condition.Os
+
+project.ext.set("ciRepo", "ci-registry.c3iot.io")
+project.ext.set("repo", "registry.c3.ai")
+project.ext.set("imageBuilder", "buildah")
+project.ext.set("imageBuilderCmd", "bud")
+project.ext.set("versionSuffix", "")
+if (Os.isFamily(Os.FAMILY_MAC)) {
+   project.imageBuilder = "docker"
+   project.imageBuilderCmd = "build"
+   project.versionSuffix = "-nonOci"
+}
+project.ext.set("ciTag", "${project.ciRepo}/${project.name}:${project.version}${project.versionSuffix}.${project.releaseVersion}")
+project.ext.set("tag", "${project.repo}/${project.name}:${project.version}${project.versionSuffix}.${project.releaseVersion}")
+
+
+task build(type: Exec) {
+   commandLine project.imageBuilder, project.imageBuilderCmd, "--build-arg", "VERSION=${project.version}", "-t", "${project.ciTag}", "."
+}
+
+task ci_release(type: Exec) {
+   commandLine project.imageBuilder, 'push', "${project.ciTag}"
+}
+
+task pre_release(type: Exec) {
+   dependsOn ci_release
+   commandLine 'docker', 'pull', "${project.ciTag}"
+}
